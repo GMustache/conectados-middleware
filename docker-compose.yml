@@ -1,0 +1,25 @@
+version: '3.6'
+
+services:
+  conectados-middleware:
+    build:
+      context: conectados-middleware
+      dockerfile: Dockerfile
+    depends_on:
+      - conectados-api
+    links:
+      - conectados-api
+    container_name: conectados-middleware
+    command: yarn dev
+    ports:
+      - 3000:3000
+  conectados-api:
+    build:
+      context: conectados-api
+      dockerfile: Dockerfile
+    volumes:
+      - .:/opt/conectados-api
+    container_name: conectados-api
+    command: yarn dev
+    ports:
+      - 3001:3001
